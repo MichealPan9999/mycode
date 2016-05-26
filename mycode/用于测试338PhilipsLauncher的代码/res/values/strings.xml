@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">用于测试338PhilipsLauncher的代码</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="getAllPackageInfo">显示打开应用的信息</string>
+    <string name="packageImage">显示对应包的图片</string>
+    <string name="showTimeInfo">显示时间</string>
+    <string name="showtimeinfo">显示系统时间</string>
+
+</resources>
