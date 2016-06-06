@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -54,7 +55,8 @@ public class PackageInfoActivity extends Activity
 	{
 		packageList = (ListView) findViewById(R.id.packagelist);
 		mPackageManager = getPackageManager();
-		allPackages = getAllApps();
+		//allPackages = getAllApps();
+		allPackages = getAllSystemApps();
 		mPackageAdapter = new PackageAdapter(context, allPackages);
 	}
 	private List<MPackageInfo> getAllSystemApps()
@@ -62,7 +64,7 @@ public class PackageInfoActivity extends Activity
 		List<MPackageInfo> allApps = new ArrayList<MPackageInfo>();
 		mIntent = new Intent(Intent.ACTION_MAIN,null);
 		mIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-		List<ResolveInfo> resolveInfos = mPackageManager.queryIntentActivities(mIntent, PackageManager.MATCH_DEFAULT_ONLY);
+		List<ResolveInfo> resolveInfos = mPackageManager.queryIntentActivities(mIntent, 0);
 		//调用系统排序，根据名字排序
 		Collections.sort(resolveInfos, new ResolveInfo.DisplayNameComparator(mPackageManager));
 		if (allApps != null)
@@ -86,7 +88,8 @@ public class PackageInfoActivity extends Activity
 	private List<MPackageInfo> getAllApps()
 	{
 		List<MPackageInfo> allPackages = new ArrayList<MPackageInfo>();
-		List<PackageInfo> packageinfo = mPackageManager.getInstalledPackages(0);
+		// GET_ACTIVITIES, GET_GIDS, GET_CONFIGURATIONS, GET_INSTRUMENTATION, GET_PERMISSIONS, GET_PROVIDERS, GET_RECEIVERS, GET_SERVICES, GET_SIGNATURES, GET_UNINSTALLED_PACKAGES
+		List<PackageInfo> packageinfo = mPackageManager.getInstalledPackages(PackageManager.GET_ACTIVITIES);
 		for (PackageInfo Info2 : packageinfo)
 		{
 			String pkgName = Info2.packageName;
@@ -99,5 +102,22 @@ public class PackageInfoActivity extends Activity
 		}
 		return allPackages;
 	}
-	
+	private List<String> queryAllSystemApp() {
+		List<String> sysapplst;
+		List<PackageInfo> packList = getPackageManager().getInstalledPackages(PackageManager.GET_UNINSTALLED_PACKAGES);
+		sysapplst = new ArrayList<String>(); 
+		for (PackageInfo pack : packList) {
+		 // 把系统的应用分离出来 
+			if ((pack.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {    
+				continue;//第三方app
+			}else if ((pack.applicationInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0) {
+				continue;//系统app升级后成第三方app
+			}
+			else {
+				//系统app
+				sysapplst.add(pack.packageName);
+			}
+		}
+		return sysapplst;
+	} 
 }
