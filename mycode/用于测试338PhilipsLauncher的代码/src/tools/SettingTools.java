@@ -20,9 +20,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Build;
 import android.text.format.Formatter;
 import android.util.Log;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * 工具类
@@ -291,5 +294,20 @@ public class SettingTools
 	public static boolean isMonkeyTesting()
 	{
 		return ActivityManager.isUserAMonkey();
+	}
+	/**
+	 * 用于弹出Toast信息
+	 * @param resId R.string.(id)
+	 * @param context 上下文
+	 */
+	public static void toastShow(int resId, Context context) {
+		Toast toast = new Toast(context);
+		TextView MsgShow = new TextView(context);
+		toast.setDuration(Toast.LENGTH_LONG);
+		MsgShow.setTextColor(Color.RED);
+		MsgShow.setTextSize(25);
+		MsgShow.setText(resId);
+		toast.setView(MsgShow);
+		toast.show();
 	}
 }
