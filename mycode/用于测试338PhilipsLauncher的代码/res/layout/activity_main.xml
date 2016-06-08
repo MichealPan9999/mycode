@@ -15,5 +15,11 @@
         android:layout_height="wrap_content"
         android:onClick="showTimeInfo"
         android:text="@string/showTimeInfo" />
+     <Button
+        android:id="@+id/showdialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="showDialog"
+        android:text="@string/showdialog" />
 
 </LinearLayout>

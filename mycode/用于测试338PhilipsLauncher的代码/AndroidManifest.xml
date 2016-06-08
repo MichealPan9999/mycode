@@ -26,6 +26,8 @@
         </activity>
         <activity android:name="com.pan.test.time.ShowTimeActivity" >
         </activity>
+        <activity android:name="com.pan.test.dialogtest.ShowDialogActivity" >
+        </activity>
     </application>
 
 </manifest>
