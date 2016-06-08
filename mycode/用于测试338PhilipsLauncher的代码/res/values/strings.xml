@@ -8,6 +8,6 @@
     <string name="showTimeInfo">显示时间</string>
     <string name="showtimeinfo">显示系统时间</string>
     <string name="showdialog">显示对话框</string>
-    
+    <string name="photoviewflipper">显示图片viewflipper</string>
 
 </resources>

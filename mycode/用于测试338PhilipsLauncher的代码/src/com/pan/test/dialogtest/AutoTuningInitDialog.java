@@ -18,7 +18,7 @@ public class AutoTuningInitDialog extends ProgressDialog
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.autotuingdialog);
+		setContentView(R.layout.activity_autotuingdialog);
 	}
 
 	@Override

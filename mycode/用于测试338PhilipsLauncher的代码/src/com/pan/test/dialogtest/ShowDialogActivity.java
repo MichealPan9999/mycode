@@ -1,11 +1,11 @@
 package com.pan.test.dialogtest;
 
-import com.pan.test.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+
+import com.pan.test.R;
 
 public class ShowDialogActivity extends Activity
 {
@@ -20,13 +20,16 @@ public class ShowDialogActivity extends Activity
 		mContext = this;
 		setDtvConfigTask task = new setDtvConfigTask();
 		task.execute();
+		//overridePendingTransition(R.anim.right_in, R.anim.right_out);
+		//overridePendingTransition(R.anim.left_in, R.anim.left_out);
+		overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
 	}
 
 	/**
 	 * 异步处理
 	 * 
 	 * @author panzq
-	 *
+	 * 
 	 */
 	class setDtvConfigTask extends AsyncTask<Void, Void, Void>
 	{

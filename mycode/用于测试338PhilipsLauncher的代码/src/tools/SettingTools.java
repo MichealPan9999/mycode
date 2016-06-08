@@ -5,6 +5,8 @@ import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -295,12 +297,17 @@ public class SettingTools
 	{
 		return ActivityManager.isUserAMonkey();
 	}
+
 	/**
 	 * 用于弹出Toast信息
-	 * @param resId R.string.(id)
-	 * @param context 上下文
+	 * 
+	 * @param resId
+	 *            R.string.(id)
+	 * @param context
+	 *            上下文
 	 */
-	public static void toastShow(int resId, Context context) {
+	public static void toastShow(int resId, Context context)
+	{
 		Toast toast = new Toast(context);
 		TextView MsgShow = new TextView(context);
 		toast.setDuration(Toast.LENGTH_LONG);
@@ -309,5 +316,65 @@ public class SettingTools
 		MsgShow.setText(resId);
 		toast.setView(MsgShow);
 		toast.show();
+	}
+
+	// file suffix, .PNG
+	private static final String SUFIXX_PNG = ".png";
+	// for storage
+	private static final String PATH_SDCARD = "/sdcard/";
+	// max quality
+	private static final int MAX_QUALITY = 100;
+
+	/**
+	 * 保存到png文件中
+	 * 
+	 * @param bitmap
+	 * @param fileName
+	 * @throws IOException
+	 */
+	public static void saveToBitmap(Bitmap bitmap, String fileName) throws IOException
+	{
+
+		File f = new File(PATH_SDCARD + fileName + SUFIXX_PNG);
+		f.createNewFile();
+		FileOutputStream fOut = null;
+
+		try
+		{
+			fOut = new FileOutputStream(f);
+		} catch (FileNotFoundException e)
+		{
+			// Log.v(TAG, "FileNotFoundException in saveToBitmap");
+			e.printStackTrace();
+		}
+		bitmap.compress(Bitmap.CompressFormat.PNG, MAX_QUALITY, fOut);
+
+		try
+		{
+			fOut.flush();
+			fOut.close();
+		} catch (IOException e)
+		{
+			// Log.v(TAG, "IOException in saveToBitmap");
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
+	 */
+	public static int dip2px(Context context, float dpValue)
+	{
+		final float scale = context.getResources().getDisplayMetrics().density;
+		return (int) (dpValue * scale + 0.5f);
+	}
+
+	/**
+	 * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
+	 */
+	public static int px2dip(Context context, float pxValue)
+	{
+		final float scale = context.getResources().getDisplayMetrics().density;
+		return (int) (pxValue / scale + 0.5f);
 	}
 }

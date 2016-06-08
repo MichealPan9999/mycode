@@ -28,6 +28,10 @@
         </activity>
         <activity android:name="com.pan.test.dialogtest.ShowDialogActivity" >
         </activity>
+        <activity android:name="com.pan.test.animphoto.ShowPhotoAnimActivity" >
+        </activity>
+        <activity android:name="com.pan.test.animphoto.ShowPhotoAnimActivity2" >
+        </activity>
     </application>
 
 </manifest>
